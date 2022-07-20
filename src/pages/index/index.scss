@@ -1,0 +1,57 @@
+@import "../styles/variables.scss";
+
+.index {
+  width: 600px;
+  /*  #ifdef rn  */
+  width: 98%;
+  /*  #endif  */
+  margin: 10px auto 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+$margin-size: 10px;
+
+.btn-view {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin: 0 $margin-size $margin-size 0;
+  border-radius: $margin-size;
+  color: #ffffff;
+  font-size: 40px;
+  width: calc((100% - $margin-size) / 2);
+  min-width: calc((100% - $margin-size) / 2);
+  max-width: calc((100% - $margin-size) / 2);
+  /*  #ifdef rn  */
+  //FIXME: to be improved
+  width: 45% ;
+  min-width: 45%;
+  max-width: 45%;
+  /*  #endif  */
+
+  &:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  &:active {
+    color: darkgray;
+    background-color: lightgray;
+  }
+}
+.view-chart {
+  background-color: $color-chart;
+}
+.view-map {
+  background-color: $color-map;
+}
+.view-address {
+  background-color: $color-address;
+}
+.view-data {
+  background-color: $color-data;
+}
