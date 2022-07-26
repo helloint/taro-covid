@@ -14,7 +14,7 @@ export default class Index extends Component {
 
   render () {
     return (
-      <View className='index'>
+      <View className='page'>
         Chart!
       </View>
     )

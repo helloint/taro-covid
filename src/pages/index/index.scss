@@ -1,17 +1,5 @@
 @import "../styles/variables.scss";
 
-.index {
-  width: 600px;
-  /*  #ifdef rn  */
-  width: 98%;
-  /*  #endif  */
-  margin: 10px auto 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 $margin-size: 10px;
 
 .btn-view {
