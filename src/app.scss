@@ -1,11 +1,11 @@
 @import "pages/styles/variables.scss";
 
 .page {
-  width: 600px;
+  max-width: 750px;
   /*  #ifdef rn  */
   width: 98%;
   /*  #endif  */
-  margin: 10px auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -44,7 +44,7 @@ export default class Index extends Component {
 
   render () {
     return (
-      <View className='page'>
+      <View className='page index'>
         {
           BTN_LIST.map((item: btnItem, index: number) => {
             return (
