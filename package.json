@@ -63,6 +63,7 @@
     "expo-keep-awake": "~9.2.0",
     "expo-permissions": "~12.1.1",
     "expo-sensors": "~10.2.2",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-native": "^0.67.3",
@@ -75,7 +76,8 @@
     "react-native-svg": "~12.1.1",
     "react-native-syan-image-picker": "0.5.3",
     "react-native-unimodules": "~0.14.10",
-    "react-native-webview": "~11.14.3"
+    "react-native-webview": "~11.14.3",
+    "taro-react-echarts": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
