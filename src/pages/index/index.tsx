@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import Taro from '@tarojs/taro';
+import {navigateTo} from '@tarojs/taro';
 import {View} from '@tarojs/components'
 import './index.scss'
 
@@ -37,7 +37,7 @@ export default class Index extends Component {
   componentDidHide () { }
 
   goToComponent = (name: string) => {
-    Taro.navigateTo({
+    navigateTo({
       url: `/pages/${name}/${name}`
     });
   };

@@ -63,7 +63,6 @@
     "expo-keep-awake": "~9.2.0",
     "expo-permissions": "~12.1.1",
     "expo-sensors": "~10.2.2",
-    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-native": "^0.67.3",
