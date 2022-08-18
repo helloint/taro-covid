@@ -7,53 +7,72 @@ import './chart.scss';
 import {CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion, CovidTableType} from "../utils/types";
 import {DAILY_TOTAL_URL, DAY_LIMIT} from "../utils/constants";
 
+interface ChartRef {
+  [chartId: string]: {
+    ref: EChartsInstance,
+    option: EChartOption | null,
+  };
+}
+
 export default function Index() {
-  const charts = ['confirm', 'shaicha'];
-  const chartRefs = [useRef<EChartsInstance>(null), useRef<EChartsInstance>(null)];
+  /*
+  （1）容器初次初始化（2）容器resize
+  触发容器配置重置，重置完后，触发容器变化事件（containerUpdatedCount）
+  容器变化触发组件重新渲染
+   */
+  const ref = useRef<HTMLElement>(null);
+  const [styleZoom, setStyleZoom] = useState(1);
+  // control the height scale, the bigger the taller. height = (width / 2.5) * styleRatio
+  const styleRatio = 1;
+  const [containerReady, setContainerReady] = useState(false);
+  const containerResize = useWindowSize();
+  const [containerUpdated, setContainerUpdated] = useState(0);
+
+  const charts = ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'];
+  const chartRefs: ChartRef = {
+    confirm: {ref: useRef<EChartsInstance>(null), option: null},
+    shaicha: {ref: useRef<EChartsInstance>(null), option: null},
+    cured: {ref: useRef<EChartsInstance>(null), option: null},
+    death: {ref: useRef<EChartsInstance>(null), option: null},
+    completeConfirmCured: {ref: useRef<EChartsInstance>(null), option: null},
+    completeShaicha: {ref: useRef<EChartsInstance>(null), option: null},
+    completeConfirmWzz: {ref: useRef<EChartsInstance>(null), option: null},
+  }
   // const [lastDate, setLastDate] = useState<string>('');
   const [currDate, setCurrDate] = useState<string>();
   const [origData, setOrigData] = useState<CovidDailyTotalType>();
-  const basicOption: EChartOption = {
-    title: {
-      text: '...',
-      padding: [5, 20],
-      left: 'center',
-      textStyle: {
-        fontSize: 26,
-      }
-    },
-    tooltip: {
-      trigger: 'axis',
-    },
-    legend: {
-      top: 15,
-      left: 20,
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: [],
-      boundaryGap: true,
-      axisLabel: {
-        interval: 0,
-        rotate: 40,
-      }
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [],
-  };
   const [chartReadyCount, setChartReadyCount] = useState<number>(0);
 
   useEffect(() => {
+    setContainerReady(true);
+
     getData();
   }, []);
+
+  useEffect(() => {
+    // weapp内获取不到offsetWidth，需特殊处理
+    if (process.env.TARO_ENV === 'weapp') {
+      // FIXME：the below code doesn't work
+      // const node = Taro.createSelectorQuery().select('#' + ref.current?.id);
+      // node.boundingClientRect(rect => {
+      //   console.log(`containerWidth: ${rect?.width}`);
+      //   if (rect) {
+      //     setStyleZoom(rect.width / 750);
+      //     setContainerUpdated(count => count + 1);
+      //   }
+      // }).exec();
+      setStyleZoom(390 / 750);
+      // TODO: 动态宽度，横屏支持
+      setContainerUpdated(count => count + 1);
+    } else {
+      const containerWidth = ref.current?.offsetWidth;
+      // console.log(`containerWidth: ${containerWidth}`);
+      if (containerWidth) {
+        setStyleZoom(containerWidth / 750);
+        setContainerUpdated(count => count + 1);
+      }
+    }
+  }, [containerReady, containerResize]);
 
   useEffect(() => {
     if (origData && currDate && chartReadyCount === charts.length) {
@@ -61,7 +80,7 @@ export default function Index() {
       // renderKanban(data);
       const chartData = processTableData(recentData, DAY_LIMIT);
 
-      const confirmChartOption = basicOption && {
+      chartRefs['confirm'].option = {
         title: {
           text: '确诊 & 无症状',
         },
@@ -75,6 +94,10 @@ export default function Index() {
             label: {
               show: true,
               position: 'inside',
+              fontSize: 12 * styleZoom,
+            },
+            lineStyle: {
+              width: 2 * styleZoom,
             },
             color: '#e47d7e',
             smooth: true,
@@ -86,6 +109,10 @@ export default function Index() {
             type: 'line',
             label: {
               show: true,
+              fontSize: 12 * styleZoom,
+            },
+            lineStyle: {
+              width: 2 * styleZoom,
             },
             color: '#fdc368',
             smooth: true,
@@ -94,8 +121,7 @@ export default function Index() {
           }
         ],
       };
-      chartRefs[0].current.setOption(confirmChartOption);
-      const shaichaChartOption = basicOption && {
+      chartRefs['shaicha'].option = {
         title: {
           text: '风险排查（社会面） 确诊 & 无症状',
         },
@@ -109,6 +135,10 @@ export default function Index() {
             label: {
               show: true,
               position: 'inside',
+              fontSize: 12 * styleZoom,
+            },
+            lineStyle: {
+              width: 2 * styleZoom,
             },
             color: '#e47d7e',
             smooth: true,
@@ -120,6 +150,10 @@ export default function Index() {
             type: 'line',
             label: {
               show: true,
+              fontSize: 12 * styleZoom,
+            },
+            lineStyle: {
+              width: 2 * styleZoom,
             },
             color: '#fdc368',
             smooth: true,
@@ -128,7 +162,155 @@ export default function Index() {
           }
         ],
       };
-      chartRefs[1].current.setOption(shaichaChartOption);
+      chartRefs['cured'].option = {
+        title: {
+          text: '在院治疗 & 新增治愈',
+        },
+        xAxis: {
+          data: Object.keys(chartData.recentDaily),
+          axisLabel: {
+            interval: 'auto',
+          }
+        },
+        series: [
+          {
+            name: '在院治疗',
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'top',
+            },
+            color: '#e47d7e',
+            animation: false,
+            data: filterDailyData(chartData.recentDaily, 'curr_confirm'),
+          },
+          {
+            name: '新增治愈',
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'top',
+            },
+            color: '#6bdab4',
+            animation: false,
+            data: filterDailyData(chartData.recentDaily, 'cured'),
+          }
+        ],
+      };
+      chartRefs['death'].option = {
+        title: {
+          text: '死亡病例',
+        },
+        xAxis: {
+          data: Object.keys(chartData.recentDaily),
+        },
+        series: [
+          {
+            name: '死亡病例',
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'top',
+            },
+            color: '#4e5a65',
+            animation: false,
+            data: filterDailyData(chartData.recentDaily, 'death'),
+          },
+        ],
+      };
+      chartRefs['completeConfirmCured'].option = {
+        title: {
+          text: '本轮疫情：确诊 & 治愈',
+        },
+        xAxis: {
+          data: Object.keys(chartData.daily),
+          axisLabel: {
+            interval: 'auto',
+          }
+        },
+        series: [
+          {
+            name: '确诊',
+            type: 'line',
+            color: '#e47d7e',
+            showSymbol: false,
+            smooth: true,
+            animation: false,
+            data: filterDailyData(chartData.daily, 'confirm'),
+          },
+          {
+            name: '治愈',
+            type: 'line',
+            color: '#6bdab4',
+            showSymbol: false,
+            smooth: true,
+            animation: false,
+            data: filterDailyData(chartData.daily, 'cured'),
+          }
+        ],
+      };
+      chartRefs['completeShaicha'].option = {
+        title: {
+          text: '本轮疫情：风险排查 & 阳性总数',
+        },
+        xAxis: {
+          data: Object.keys(chartData.daily),
+          axisLabel: {
+            interval: 'auto',
+          }
+        },
+        series: [
+          {
+            name: '风险排查',
+            type: 'line',
+            color: '#e58e51',
+            animation: false,
+            showSymbol: false,
+            data: filterDailyData(chartData.daily, 'shaicha'),
+          },
+          {
+            name: '阳性总数',
+            type: 'line',
+            color: '#4f6fc7',
+            animation: false,
+            showSymbol: false,
+            data: filterDailyData(chartData.daily, 'total'),
+          }
+        ],
+      };
+      chartRefs['completeConfirmWzz'].option = {
+        title: {
+          text: '本轮疫情：确诊 & 无症状',
+        },
+        xAxis: {
+          data: Object.keys(chartData.daily),
+          axisLabel: {
+            interval: 'auto',
+          }
+        },
+        series: [
+          {
+            name: '确诊',
+            type: 'line',
+            color: '#e47d7e',
+            animation: false,
+            showSymbol: false,
+            data: filterDailyData(chartData.daily, 'confirm'),
+          },
+          {
+            name: '无症状',
+            type: 'line',
+            color: '#fdc368',
+            animation: false,
+            showSymbol: false,
+            data: filterDailyData(chartData.daily, 'wzz'),
+          }
+        ],
+      };
+
+      Object.values(chartRefs).forEach((item) => {
+        item.ref.current.setOption(item.option);
+      });
     }
   }, [origData, currDate, chartReadyCount]);
 
@@ -145,23 +327,115 @@ export default function Index() {
         });
   }
 
+  const getOption: EChartOption = () => {
+    return {
+      title: {
+        text: '...',
+        padding: [10 * styleZoom * styleRatio, 20 * styleZoom, 5 * styleZoom * styleRatio],
+        left: 'center',
+        textStyle: {
+          fontSize: 26 * styleZoom,
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+      },
+      legend: {
+        top: 15 * styleZoom * styleRatio,
+        left: 20 * styleZoom,
+        padding: [5 * styleZoom * styleRatio, 5 * styleZoom],
+        itemGap: 10 * styleZoom,
+        itemWidth: 25 * styleZoom,
+        itemHeight: 14 * styleZoom,
+        textStyle: {
+          fontSize: 12 * styleZoom,
+        },
+        lineStyle: {
+          width: 2 * styleZoom,
+        },
+      },
+      grid: {
+        left: 3 * styleZoom + '%',
+        right: 4 * styleZoom + '%',
+        bottom: 3 * styleZoom * styleRatio + '%',
+        height: 230 * styleZoom * styleRatio,
+        containLabel: true,
+      },
+      xAxis: {
+        type: 'category',
+        data: [],
+        boundaryGap: true,
+        axisLabel: {
+          interval: 0,  // 控制x轴间距。默认会根据空间动态调整显示数量，设置为0表示强制全部显示。
+          rotate: 40,
+          fontSize: 12 * styleZoom,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          fontSize: 12 * styleZoom,
+        },
+      },
+    };
+  }
+
   return (
-    <View className='page'>
-      {charts.map((id, index) => {
+    <View ref={ref} id='chartView' className='page'>
+      {containerUpdated ? charts.map(id => {
+        // console.log(`${containerUpdated},${styleZoom},${styleRatio}`);
         return <Echarts
           key={id}
+          className=''
           echarts={echarts}
           theme='dark'
           onChartReady={(echartsInstance: EChartsInstance) => {
-            chartRefs[index].current = echartsInstance;
+            chartRefs[id].ref.current = echartsInstance;
             setChartReadyCount(count => count + 1);
           }}
-          opts={{devicePixelRatio: 2}}
-          option={basicOption}
+          opts={{devicePixelRatio: 2, width: 750 * styleZoom, height: 300 * styleZoom * styleRatio}}
+          option={getOption()}
+          style={{
+            width: 750 * styleZoom + 'px',
+            height: 300 * styleZoom * styleRatio + 'px',
+          }}
         ></Echarts>
-      })}
+      }) : ''}
     </View>
   )
+}
+
+interface WindowSize {
+  width: number | undefined;
+  height: number | undefined;
+}
+
+// Hook
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState<WindowSize>({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
 }
 
 /**
@@ -240,7 +514,7 @@ function processTableData(data: CovidDailyTotalType, dayLimit: number): CovidTab
   Object.entries(data.daily).forEach(([date, dailyData], index) => {
     const dateStr = parseInt(date.split('-')[1], 10) + '月'
       + parseInt(date.split('-')[2], 10) + '日';
-    if (index > totalNum - dayLimit) {
+    if (index >= totalNum - dayLimit) {
       recentDaily[dateStr] = dailyData;
     }
     daily[dateStr] = dailyData;

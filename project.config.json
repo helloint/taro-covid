@@ -2,9 +2,9 @@
   "miniprogramRoot": "./dist",
   "projectname": "taro-covid",
   "description": "",
-  "appid": "touristappid",
+  "appid": "wx6579eda091f16f66",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "postcss": false,
     "minified": false
