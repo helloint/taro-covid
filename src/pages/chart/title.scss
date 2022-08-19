@@ -1,0 +1,45 @@
+.chart-title {
+  height: 80px;
+  color: #eff2f9;
+  line-height: 80px;
+  background-color: #100c28;
+  display: flex;
+}
+
+.chart-title__center {
+  width: 450px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.chart-title__left {
+  width: 130px;
+  padding-left: 20px;
+}
+
+.chart-title__right {
+  width: 130px;
+  font-size: 12px;
+  text-align: right;
+  vertical-align: bottom;
+  padding-right: 20px;
+}
+
+.chart-title__right a {
+  color: white;
+  text-decoration: none;
+}
+
+.chart-title__right a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.chart-title__date {
+  display: inline;
+}
+
+.chart-title__location {
+  display: inline;
+  padding-left: 10px;
+}

@@ -3,9 +3,12 @@ import Echarts, {EChartOption, EChartsInstance} from 'taro-react-echarts';
 import {request} from "@tarojs/taro";
 import {View} from '@tarojs/components';
 import echarts from '../../assets/js/echarts.js';
-import './chart.scss';
 import {CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion, CovidTableType} from "../utils/types";
 import {DAILY_TOTAL_URL, DAY_LIMIT} from "../utils/constants";
+import Kanban from "./kanban";
+import Title from "./title";
+
+import './chart.scss';
 
 interface ChartRef {
   [chartId: string]: {
@@ -14,7 +17,7 @@ interface ChartRef {
   };
 }
 
-export default function Index() {
+export default function Chart() {
   /*
   （1）容器初次初始化（2）容器resize
   触发容器配置重置，重置完后，触发容器变化事件（containerUpdatedCount）
@@ -22,7 +25,7 @@ export default function Index() {
    */
   const ref = useRef<HTMLElement>(null);
   const [styleZoom, setStyleZoom] = useState(1);
-  // control the height scale, the bigger the taller. height = (width / 2.5) * styleRatio
+  // control the height scale, the bigger, the taller. height = (width / 2.5) * styleRatio
   const styleRatio = 1;
   const [containerReady, setContainerReady] = useState(false);
   const containerResize = useWindowSize();
@@ -381,26 +384,31 @@ export default function Index() {
   }
 
   return (
-    <View ref={ref} id='chartView' className='page'>
-      {containerUpdated ? charts.map(id => {
-        // console.log(`${containerUpdated},${styleZoom},${styleRatio}`);
-        return <Echarts
-          key={id}
-          className=''
-          echarts={echarts}
-          theme='dark'
-          onChartReady={(echartsInstance: EChartsInstance) => {
-            chartRefs[id].ref.current = echartsInstance;
-            setChartReadyCount(count => count + 1);
-          }}
-          opts={{devicePixelRatio: 2, width: 750 * styleZoom, height: 300 * styleZoom * styleRatio}}
-          option={getOption()}
-          style={{
-            width: 750 * styleZoom + 'px',
-            height: 300 * styleZoom * styleRatio + 'px',
-          }}
-        ></Echarts>
-      }) : ''}
+    <View ref={ref} className='page'>
+      <View>
+        <Title title={currDate && formatDate(currDate)} location='上海' />
+        <Kanban data={currDate ? origData?.daily[currDate] : undefined} />
+      </View>
+      <View>
+        {containerUpdated ? charts.map(id => {
+          return <Echarts
+            key={id}
+            className=''
+            echarts={echarts}
+            theme='dark'
+            onChartReady={(echartsInstance: EChartsInstance) => {
+              chartRefs[id].ref.current = echartsInstance;
+              setChartReadyCount(count => count + 1);
+            }}
+            opts={{devicePixelRatio: 2, width: 750 * styleZoom, height: 300 * styleZoom * styleRatio}}
+            option={getOption()}
+            style={{
+              width: 750 * styleZoom + 'px',
+              height: 300 * styleZoom * styleRatio + 'px',
+            }}
+          ></Echarts>
+        }) : ''}
+      </View>
     </View>
   )
 }
@@ -535,4 +543,13 @@ function filterDailyData(origData: { [key: string]: CovidDailyExt }, dataField: 
   });
 
   return ret;
+}
+
+/**
+ * format date
+ * @param date 2022-05-10
+ * @returns {string} 2022年5月10日
+ */
+const formatDate = (date: string): string => {
+  return parseInt(date.split('-')[0], 10) + '年' + parseInt(date.split('-')[1], 10) + '月' + parseInt(date.split('-')[2], 10) + '日';
 }
