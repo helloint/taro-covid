@@ -32,7 +32,7 @@ PODS:
     - ExpoModulesCore
   - Expo (46.0.9):
     - ExpoModulesCore
-  - ExpoImagePicker (13.3.1):
+  - ExpoImagePicker (13.1.1):
     - ExpoModulesCore
   - ExpoKeepAwake (10.2.0):
     - ExpoModulesCore
@@ -337,7 +337,7 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
-  - react-native-slider (4.3.1):
+  - react-native-slider (4.2.4):
     - React-Core
   - react-native-webview (11.23.0):
     - React-Core
@@ -726,7 +726,7 @@ SPEC CHECKSUMS:
   EXImageLoader: fce288cd59b5366cfcf6b26f7fdb65d12af0c808
   EXLocation: 5a963de9e4e6feb1bf9f806c22968b3ce16a0051
   Expo: ffbc5680fa95d971c09f118ec2a7b0cfc9d8a77e
-  ExpoImagePicker: d6e19385043133dd5ad2afb3a7676f73fcaa9167
+  ExpoImagePicker: 3dc7009696d3b205cb7d225c046734339295a803
   ExpoKeepAwake: d8ca9d3195d7d30f39d04ce79d2f0890f8d7ba00
   ExpoModulesCore: 7827efd96f9516c3852451181b8183fca214f5f4
   EXSensors: 995a1d3c37d4cc22bea5d777151a2ccee5c29316
@@ -764,7 +764,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: f473620bc118d6f44ce65669dd4810a7cfb36a7d
   react-native-pager-view: fc311e95f8ba2b710deae6cb0a21f2102fb49d99
   react-native-safe-area-context: deca3b734e6ad82df91bd6e68f3eb48bbb96b758
-  react-native-slider: fc2151b00da927b83dc0a7f7f20d56adf9a61dcc
+  react-native-slider: c5a6eb9927f6e8b425527ee63338eecebfba1e6a
   react-native-webview: c09ea739796b91286ae1f581d2db536b48c33911
   React-perflogger: fa15d1d29ff7557ee25ea48f7f59e65896fb3215
   React-RCTActionSheet: e83515333352a3cc19c146e3c7a63a8a9269da8f
