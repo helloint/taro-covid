@@ -386,8 +386,8 @@ export default function Chart() {
   return (
     <View ref={ref} className='page'>
       <View>
-        <Title title={currDate && formatDate(currDate)} location='上海' />
-        <Kanban data={currDate ? origData?.daily[currDate] : undefined} />
+        <Title title={currDate && formatDate(currDate)} location='上海'/>
+        <Kanban data={currDate ? origData?.daily[currDate] : undefined}/>
       </View>
       <View>
         {containerUpdated ? charts.map(id => {
@@ -475,8 +475,8 @@ function extendData(data: CovidDailyTotalSource): CovidDailyTotalType {
       total_zhuangui: total_zhuangui,
       total_death: total_death,
       history_total_cured: total_cured + 385,
-      'confirm-wzz_percent': (dailyData.confirm / dailyData.wzz).toFixed(2) + '%',
-      'wzz-zhuangui_percent': (dailyData.zhuangui / dailyData.wzz).toFixed(2) + '%',
+      'confirm-wzz_percent': (dailyData.wzz != 0 ? (dailyData.confirm / dailyData.wzz).toFixed(2) : 0) + '%',
+      'wzz-zhuangui_percent': (dailyData.wzz != 0 ? (dailyData.zhuangui / dailyData.wzz).toFixed(2) : 0) + '%',
     }
   });
   return {

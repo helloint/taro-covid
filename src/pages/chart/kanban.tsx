@@ -52,7 +52,7 @@ const Kanban: React.FC<{ data?: CovidDailyExt }> = ({data}) => {
           const className = `kanban__item kanban__item--${id}`;
           return (
             <View key={id} className={className}>
-              <View className='kanban__item-data'>{val || '...'}</View>
+              <View className='kanban__item-data'>{val ?? '...'}</View>
               <View className='kanban__item-label'>{label}</View>
             </View>
           )
