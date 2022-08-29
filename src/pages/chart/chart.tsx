@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import Echarts, {EChartOption, EChartsInstance} from 'taro-react-echarts';
 import {request} from "@tarojs/taro";
 import {View} from '@tarojs/components';
@@ -31,7 +31,7 @@ export default function Chart() {
   const containerResize = useWindowSize();
   const [containerUpdated, setContainerUpdated] = useState(0);
 
-  const charts = ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'];
+  const charts = useMemo(() => ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'], []);
   const chartRefs: ChartRef = {
     confirm: {ref: useRef<EChartsInstance>(null), option: null},
     shaicha: {ref: useRef<EChartsInstance>(null), option: null},
@@ -314,8 +314,9 @@ export default function Chart() {
       Object.values(chartRefs).forEach((item) => {
         item.ref.current.setOption(item.option);
       });
+      // 考虑把生成后的chart转换成image, 提高显示性能(参考: https://segmentfault.com/a/1190000040198947)
     }
-  }, [origData, currDate, chartReadyCount]);
+  }, [origData, currDate, chartReadyCount, styleZoom, charts]);
 
   const getData = () => {
     request({url: DAILY_TOTAL_URL})
@@ -386,8 +387,8 @@ export default function Chart() {
   return (
     <View ref={ref} className='page'>
       <View>
-        <Title title={currDate && formatDate(currDate)} location='上海'/>
-        <Kanban data={currDate ? origData?.daily[currDate] : undefined}/>
+        <Title title={currDate && formatDate(currDate)} location='上海' />
+        <Kanban data={currDate ? origData?.daily[currDate] : undefined} />
       </View>
       <View>
         {containerUpdated ? charts.map(id => {
