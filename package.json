@@ -78,6 +78,10 @@
     "react-native-svg": "^12.4.4",
     "react-native-syan-image-picker": "^0.5.3",
     "react-native-webview": "^11.23.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
     "taro-react-echarts": "^1.1.0"
   },
   "devDependencies": {
@@ -90,6 +94,7 @@
     "@tarojs/webpack-runner": "3.5.3",
     "@types/react": "^17.0.2",
     "@types/react-native": "^0.67.0",
+    "@types/react-redux": "^7.1.24",
     "@types/webpack-env": "^1.13.6",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",

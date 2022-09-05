@@ -1,14 +1,14 @@
 import {useEffect, useMemo, useRef, useState} from 'react'
+import {useSelector, useDispatch} from "react-redux";
 import Echarts, {EChartOption, EChartsInstance} from 'taro-react-echarts';
-import {request} from "@tarojs/taro";
 import {View} from '@tarojs/components';
 import echarts from '../../assets/js/echarts.js';
 import {
-  DAILY_TOTAL_URL, DAY_LIMIT,
-  CovidDailyTotalSource, CovidDailyTotalType,
+  DAY_LIMIT,
   useWindowSize,
-  filterDailyData, extendData, formatDate, cutDailyData, processTableData,
+  filterDailyData, formatDate, cutDailyData, processTableData,
 } from "../utils";
+import {getDailyTotalData} from "../../redux/actions/dailyTotalData";
 import Kanban from "./kanban";
 import Title from "./title";
 
@@ -34,6 +34,7 @@ export default function Chart() {
   const [containerReady, setContainerReady] = useState(false);
   const containerResize = useWindowSize();
   const [containerUpdated, setContainerUpdated] = useState(0);
+  const dispatch = useDispatch();
 
   const charts = useMemo(() => ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'], []);
   const chartRefs: ChartRef = {
@@ -46,14 +47,15 @@ export default function Chart() {
     completeConfirmWzz: {ref: useRef<EChartsInstance>(null), option: null},
   }
   // const [lastDate, setLastDate] = useState<string>('');
-  const [currDate, setCurrDate] = useState<string>();
-  const [origData, setOrigData] = useState<CovidDailyTotalType>();
+  // @ts-ignore
+  const {currDate, dailyTotal: origData} = useSelector(state => state.dailyTotalData);
   const [chartReadyCount, setChartReadyCount] = useState<number>(0);
 
   useEffect(() => {
     setContainerReady(true);
 
-    getData();
+    // @ts-ignore
+    dispatch(getDailyTotalData());
   }, []);
 
   useEffect(() => {
@@ -321,19 +323,6 @@ export default function Chart() {
       // 考虑把生成后的chart转换成image, 提高显示性能(参考: https://segmentfault.com/a/1190000040198947)
     }
   }, [origData, currDate, chartReadyCount, styleZoom, charts]);
-
-  const getData = () => {
-    request({url: DAILY_TOTAL_URL})
-      .then(res => res.data)
-      .then(
-        (dataSource: CovidDailyTotalSource) => {
-          const extendedData = extendData(dataSource);
-          const date = Object.keys(extendedData.daily)[Object.keys(extendedData.daily).length - 1];
-          // setLastDate(date); // 目前没用到
-          setOrigData(extendedData);
-          setCurrDate(date);
-        });
-  }
 
   const getOption: EChartOption = () => {
     return {
