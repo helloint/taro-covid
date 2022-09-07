@@ -54,7 +54,6 @@ export default function Chart() {
   useEffect(() => {
     setContainerReady(true);
     const promise = dispatch(getDailyTotal());
-    setTimeout(() => promise.abort(), 50);
     return (() => {
       promise.abort();
     });
