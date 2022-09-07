@@ -1,5 +1,0 @@
-const GET_DAILY_TOTAL_DATA = 'GET_DAILY_TOTAL_DATA';
-
-export {
-  GET_DAILY_TOTAL_DATA,
-}

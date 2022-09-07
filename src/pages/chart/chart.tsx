@@ -1,14 +1,14 @@
 import {useEffect, useMemo, useRef, useState} from 'react'
-import {useSelector, useDispatch} from "react-redux";
 import Echarts, {EChartOption, EChartsInstance} from 'taro-react-echarts';
 import {View} from '@tarojs/components';
+import {getDailyTotal} from "../../store/dailyTotal/dailyTotalSlice";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import echarts from '../../assets/js/echarts.js';
 import {
   DAY_LIMIT,
   useWindowSize,
   filterDailyData, formatDate, cutDailyData, processTableData,
 } from "../utils";
-import {getDailyTotalData} from "../../redux/actions/dailyTotalData";
 import Kanban from "./kanban";
 import Title from "./title";
 
@@ -34,7 +34,7 @@ export default function Chart() {
   const [containerReady, setContainerReady] = useState(false);
   const containerResize = useWindowSize();
   const [containerUpdated, setContainerUpdated] = useState(0);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const charts = useMemo(() => ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'], []);
   const chartRefs: ChartRef = {
@@ -48,15 +48,17 @@ export default function Chart() {
   }
   // const [lastDate, setLastDate] = useState<string>('');
   // @ts-ignore
-  const {currDate, dailyTotal: origData} = useSelector(state => state.dailyTotalData);
+  const {currDate, dailyTotal: origData} = useAppSelector(state => state.dailyTotal);
   const [chartReadyCount, setChartReadyCount] = useState<number>(0);
 
   useEffect(() => {
     setContainerReady(true);
-
-    // @ts-ignore
-    dispatch(getDailyTotalData());
-  }, []);
+    const promise = dispatch(getDailyTotal());
+    setTimeout(() => promise.abort(), 50);
+    return (() => {
+      promise.abort();
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     // weapp内获取不到offsetWidth，需特殊处理
