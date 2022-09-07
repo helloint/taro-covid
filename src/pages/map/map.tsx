@@ -1,22 +1,17 @@
-import { Component } from 'react'
-import {View} from '@tarojs/components'
-import './map.scss'
+import { Component } from 'react';
+import { View } from '@tarojs/components';
+import './map.scss';
 
 export default class Index extends Component {
+  componentDidMount() {}
 
-  componentDidMount () { }
+  componentWillUnmount() {}
 
-  componentWillUnmount () { }
+  componentDidShow() {}
 
-  componentDidShow () { }
+  componentDidHide() {}
 
-  componentDidHide () { }
-
-  render () {
-    return (
-      <View className='index'>
-        Map!
-      </View>
-    )
+  render() {
+    return <View className='index'>Map!</View>;
   }
 }

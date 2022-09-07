@@ -1,23 +1,19 @@
-import {useEffect, useMemo, useRef, useState} from 'react'
-import Echarts, {EChartOption, EChartsInstance} from 'taro-react-echarts';
-import {View} from '@tarojs/components';
-import {getDailyTotal} from "../../store/dailyTotal/dailyTotalSlice";
-import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import Echarts, { EChartOption, EChartsInstance } from 'taro-react-echarts';
+import { View } from '@tarojs/components';
+import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import echarts from '../../assets/js/echarts.js';
-import {
-  DAY_LIMIT,
-  useWindowSize,
-  filterDailyData, formatDate, cutDailyData, processTableData,
-} from "../utils";
-import Kanban from "./kanban";
-import Title from "./title";
+import { DAY_LIMIT, useWindowSize, filterDailyData, formatDate, cutDailyData, processTableData } from '../utils';
+import Kanban from './kanban';
+import Title from './title';
 
 import './chart.scss';
 
 interface ChartRef {
   [chartId: string]: {
-    ref: EChartsInstance,
-    option: EChartOption | null,
+    ref: EChartsInstance;
+    option: EChartOption | null;
   };
 }
 
@@ -36,27 +32,30 @@ export default function Chart() {
   const [containerUpdated, setContainerUpdated] = useState(0);
   const dispatch = useAppDispatch();
 
-  const charts = useMemo(() => ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'], []);
+  const charts = useMemo(
+    () => ['confirm', 'shaicha', 'cured', 'death', 'completeConfirmCured', 'completeShaicha', 'completeConfirmWzz'],
+    []
+  );
   const chartRefs: ChartRef = {
-    confirm: {ref: useRef<EChartsInstance>(null), option: null},
-    shaicha: {ref: useRef<EChartsInstance>(null), option: null},
-    cured: {ref: useRef<EChartsInstance>(null), option: null},
-    death: {ref: useRef<EChartsInstance>(null), option: null},
-    completeConfirmCured: {ref: useRef<EChartsInstance>(null), option: null},
-    completeShaicha: {ref: useRef<EChartsInstance>(null), option: null},
-    completeConfirmWzz: {ref: useRef<EChartsInstance>(null), option: null},
-  }
+    confirm: { ref: useRef<EChartsInstance>(null), option: null },
+    shaicha: { ref: useRef<EChartsInstance>(null), option: null },
+    cured: { ref: useRef<EChartsInstance>(null), option: null },
+    death: { ref: useRef<EChartsInstance>(null), option: null },
+    completeConfirmCured: { ref: useRef<EChartsInstance>(null), option: null },
+    completeShaicha: { ref: useRef<EChartsInstance>(null), option: null },
+    completeConfirmWzz: { ref: useRef<EChartsInstance>(null), option: null },
+  };
   // const [lastDate, setLastDate] = useState<string>('');
   // @ts-ignore
-  const {currDate, dailyTotal: origData} = useAppSelector(state => state.dailyTotal);
+  const { currDate, dailyTotal: origData } = useAppSelector((state) => state.dailyTotal);
   const [chartReadyCount, setChartReadyCount] = useState<number>(0);
 
   useEffect(() => {
     setContainerReady(true);
     const promise = dispatch(getDailyTotal());
-    return (() => {
+    return () => {
       promise.abort();
-    });
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -73,13 +72,13 @@ export default function Chart() {
       // }).exec();
       setStyleZoom(390 / 750);
       // TODO: 动态宽度，横屏支持
-      setContainerUpdated(count => count + 1);
+      setContainerUpdated((count) => count + 1);
     } else {
       const containerWidth = ref.current?.offsetWidth;
       // console.log(`containerWidth: ${containerWidth}`);
       if (containerWidth) {
         setStyleZoom(containerWidth / 750);
-        setContainerUpdated(count => count + 1);
+        setContainerUpdated((count) => count + 1);
       }
     }
   }, [containerReady, containerResize]);
@@ -128,7 +127,7 @@ export default function Chart() {
             smooth: true,
             animation: false,
             data: filterDailyData(chartData.recentDaily, 'wzz'),
-          }
+          },
         ],
       };
       chartRefs['shaicha'].option = {
@@ -169,7 +168,7 @@ export default function Chart() {
             smooth: true,
             animation: false,
             data: filterDailyData(chartData.recentDaily, 'wzz_shaicha'),
-          }
+          },
         ],
       };
       chartRefs['cured'].option = {
@@ -180,7 +179,7 @@ export default function Chart() {
           data: Object.keys(chartData.recentDaily),
           axisLabel: {
             interval: 'auto',
-          }
+          },
         },
         series: [
           {
@@ -204,7 +203,7 @@ export default function Chart() {
             color: '#6bdab4',
             animation: false,
             data: filterDailyData(chartData.recentDaily, 'cured'),
-          }
+          },
         ],
       };
       chartRefs['death'].option = {
@@ -236,7 +235,7 @@ export default function Chart() {
           data: Object.keys(chartData.daily),
           axisLabel: {
             interval: 'auto',
-          }
+          },
         },
         series: [
           {
@@ -256,7 +255,7 @@ export default function Chart() {
             smooth: true,
             animation: false,
             data: filterDailyData(chartData.daily, 'cured'),
-          }
+          },
         ],
       };
       chartRefs['completeShaicha'].option = {
@@ -267,7 +266,7 @@ export default function Chart() {
           data: Object.keys(chartData.daily),
           axisLabel: {
             interval: 'auto',
-          }
+          },
         },
         series: [
           {
@@ -285,7 +284,7 @@ export default function Chart() {
             animation: false,
             showSymbol: false,
             data: filterDailyData(chartData.daily, 'total'),
-          }
+          },
         ],
       };
       chartRefs['completeConfirmWzz'].option = {
@@ -296,7 +295,7 @@ export default function Chart() {
           data: Object.keys(chartData.daily),
           axisLabel: {
             interval: 'auto',
-          }
+          },
         },
         series: [
           {
@@ -314,7 +313,7 @@ export default function Chart() {
             animation: false,
             showSymbol: false,
             data: filterDailyData(chartData.daily, 'wzz'),
-          }
+          },
         ],
       };
 
@@ -333,7 +332,7 @@ export default function Chart() {
         left: 'center',
         textStyle: {
           fontSize: 26 * styleZoom,
-        }
+        },
       },
       tooltip: {
         trigger: 'axis',
@@ -364,7 +363,7 @@ export default function Chart() {
         data: [],
         boundaryGap: true,
         axisLabel: {
-          interval: 0,  // 控制x轴间距。默认会根据空间动态调整显示数量，设置为0表示强制全部显示。
+          interval: 0, // 控制x轴间距。默认会根据空间动态调整显示数量，设置为0表示强制全部显示。
           rotate: 40,
           fontSize: 12 * styleZoom,
         },
@@ -376,7 +375,7 @@ export default function Chart() {
         },
       },
     };
-  }
+  };
 
   return (
     <View ref={ref} className='page'>
@@ -385,25 +384,29 @@ export default function Chart() {
         <Kanban data={currDate ? origData?.daily[currDate] : undefined} />
       </View>
       <View>
-        {containerUpdated ? charts.map(id => {
-          return <Echarts
-            key={id}
-            className=''
-            echarts={echarts}
-            theme='dark'
-            onChartReady={(echartsInstance: EChartsInstance) => {
-              chartRefs[id].ref.current = echartsInstance;
-              setChartReadyCount(count => count + 1);
-            }}
-            opts={{devicePixelRatio: 2, width: 750 * styleZoom, height: 300 * styleZoom * styleRatio}}
-            option={getOption()}
-            style={{
-              width: 750 * styleZoom + 'px',
-              height: 300 * styleZoom * styleRatio + 'px',
-            }}
-          ></Echarts>
-        }) : ''}
+        {containerUpdated
+          ? charts.map((id) => {
+              return (
+                <Echarts
+                  key={id}
+                  className=''
+                  echarts={echarts}
+                  theme='dark'
+                  onChartReady={(echartsInstance: EChartsInstance) => {
+                    chartRefs[id].ref.current = echartsInstance;
+                    setChartReadyCount((count) => count + 1);
+                  }}
+                  opts={{ devicePixelRatio: 2, width: 750 * styleZoom, height: 300 * styleZoom * styleRatio }}
+                  option={getOption()}
+                  style={{
+                    width: 750 * styleZoom + 'px',
+                    height: 300 * styleZoom * styleRatio + 'px',
+                  }}
+                ></Echarts>
+              );
+            })
+          : ''}
       </View>
     </View>
-  )
+  );
 }

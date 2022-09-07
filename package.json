@@ -32,7 +32,8 @@
     "ios": "react-native run-ios --no-packager",
     "start": "npm run dev:rn --",
     "podInstall": "pod-install",
-    "upgradePeerdeps": "install-peerdeps @tarojs/taro-rn@3.5.3 -o && install-peerdeps @tarojs/components-rn@3.5.3 -o && install-peerdeps @tarojs/router-rn@3.5.3 -o && pod-install"
+    "upgradePeerdeps": "install-peerdeps @tarojs/taro-rn@3.5.3 -o && install-peerdeps @tarojs/components-rn@3.5.3 -o && install-peerdeps @tarojs/router-rn@3.5.3 -o && pod-install",
+    "format": "prettier --write src/**/*.{js,ts,tsx}"
   },
   "browserslist": [
     "last 3 versions",
@@ -101,12 +102,15 @@
     "@typescript-eslint/parser": "^5.20.0",
     "babel-preset-taro": "3.5.3",
     "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-taro": "3.5.3",
     "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "install-peerdeps": "^3.0.3",
     "pod-install": "^0.1.23",
+    "prettier": "2.7.1",
     "react-refresh": "^0.14.0",
     "stylelint": "9.3.0",
     "typescript": "^4.1.0"

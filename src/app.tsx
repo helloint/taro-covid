@@ -1,13 +1,9 @@
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store/store';
 
-import './app.scss'
+import './app.scss';
 
 const App = (props) => {
-  return (
-    <Provider store={store}>
-      {props.children}
-    </Provider>
-  );
-}
+  return <Provider store={store}>{props.children}</Provider>;
+};
 export default App;

@@ -1,11 +1,11 @@
-import { Component } from 'react'
-import {navigateTo} from '@tarojs/taro';
-import {View} from '@tarojs/components'
-import './index.scss'
+import { Component } from 'react';
+import { navigateTo } from '@tarojs/taro';
+import { View } from '@tarojs/components';
+import './index.scss';
 
 interface btnItem {
-  id: string,
-  text: string,
+  id: string;
+  text: string;
 }
 
 const BTN_LIST: btnItem[] = [
@@ -24,39 +24,35 @@ const BTN_LIST: btnItem[] = [
   {
     id: 'data',
     text: '数据',
-  },];
+  },
+];
 
 export default class Index extends Component {
+  componentDidMount() {}
 
-  componentDidMount () { }
+  componentWillUnmount() {}
 
-  componentWillUnmount () { }
+  componentDidShow() {}
 
-  componentDidShow () { }
-
-  componentDidHide () { }
+  componentDidHide() {}
 
   goToComponent = (name: string) => {
     navigateTo({
-      url: `/pages/${name}/${name}`
+      url: `/pages/${name}/${name}`,
     });
   };
 
-  render () {
+  render() {
     return (
       <View className='page index'>
-        {
-          BTN_LIST.map((item: btnItem, index: number) => {
-            return (
-              <View className={`btn-view view-${item.id}`} key={index}
-                onClick={this.goToComponent.bind(this, `${item.id}`)}
-              >
-                {item.text}
-              </View>
-            );
-          })
-        }
+        {BTN_LIST.map((item: btnItem, index: number) => {
+          return (
+            <View className={`btn-view view-${item.id}`} key={index} onClick={this.goToComponent.bind(this, `${item.id}`)}>
+              {item.text}
+            </View>
+          );
+        })}
       </View>
-    )
+    );
   }
 }

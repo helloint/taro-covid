@@ -1,10 +1,10 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import dailyTotalReducer from './dailyTotal/dailyTotalSlice';
 
 const reducer = {
   dailyTotal: dailyTotalReducer,
-}
+};
 
 // TODO: how it works with RTK? `composeWithDevTools` is already handled by configureStore,
 //  the problem is just for the `options`
@@ -16,12 +16,9 @@ const reducer = {
 
 const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-    .concat([
-      process.env.NODE_ENV === 'development' ? logger : null,
-    ]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([process.env.NODE_ENV === 'development' ? logger : null]),
   devTools: process.env.NODE_ENV !== 'production',
-})
+});
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

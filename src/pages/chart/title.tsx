@@ -1,9 +1,9 @@
 import React from 'react';
-import {View} from "@tarojs/components";
+import { View } from '@tarojs/components';
 
 import './title.scss';
 
-const Title: React.FC<{ title?: string, location?: string | null }> = ({title = '...', location = '...'}) => {
+const Title: React.FC<{ title?: string; location?: string | null }> = ({ title = '...', location = '...' }) => {
   return (
     <View className='chart-title'>
       <View className='chart-title__left'></View>

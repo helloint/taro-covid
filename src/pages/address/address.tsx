@@ -1,22 +1,17 @@
-import { Component } from 'react'
-import {View} from '@tarojs/components'
-import './address.scss'
+import { Component } from 'react';
+import { View } from '@tarojs/components';
+import './address.scss';
 
 export default class Index extends Component {
+  componentDidMount() {}
 
-  componentDidMount () { }
+  componentWillUnmount() {}
 
-  componentWillUnmount () { }
+  componentDidShow() {}
 
-  componentDidShow () { }
+  componentDidHide() {}
 
-  componentDidHide () { }
-
-  render () {
-    return (
-      <View className='index'>
-        Address!
-      </View>
-    )
+  render() {
+    return <View className='index'>Address!</View>;
   }
 }
