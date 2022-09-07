@@ -33,7 +33,10 @@
     "start": "npm run dev:rn --",
     "podInstall": "pod-install",
     "upgradePeerdeps": "install-peerdeps @tarojs/taro-rn@3.5.3 -o && install-peerdeps @tarojs/components-rn@3.5.3 -o && install-peerdeps @tarojs/router-rn@3.5.3 -o && pod-install",
-    "format": "prettier --write src/**/*.{js,ts,tsx}"
+    "format": "prettier --write src/**/*.{js,ts,tsx}",
+    "pretty-quick": "pretty-quick --staged",
+    "prepare": "husky install",
+    "test": "npm run pretty-quick"
   },
   "browserslist": [
     "last 3 versions",
@@ -108,9 +111,11 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^8.0.0",
     "install-peerdeps": "^3.0.3",
     "pod-install": "^0.1.23",
     "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3",
     "react-refresh": "^0.14.0",
     "stylelint": "9.3.0",
     "typescript": "^4.1.0"
