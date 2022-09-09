@@ -33,7 +33,7 @@
     "start": "npm run dev:rn --",
     "podInstall": "pod-install",
     "upgradePeerdeps": "install-peerdeps @tarojs/taro-rn@3.5.3 -o && install-peerdeps @tarojs/components-rn@3.5.3 -o && install-peerdeps @tarojs/router-rn@3.5.3 -o && pod-install",
-    "format": "prettier --write src/**/*.{js,ts,tsx}",
+    "format": "prettier --write src/**/*.{js,ts,tsx,scss}",
     "pretty-quick": "pretty-quick --staged",
     "prepare": "husky install",
     "test": "npm run pretty-quick"

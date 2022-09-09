@@ -1,4 +1,4 @@
-@import "../styles/variables.scss";
+@import '../styles/variables.scss';
 
 $margin-size: 10px;
 
@@ -20,7 +20,7 @@ $margin-size: 10px;
   max-width: calc((100% - $margin-size) / 2);
   /*  #ifdef rn  */
   //FIXME: to be improved
-  width: 45% ;
+  width: 45%;
   min-width: 45%;
   max-width: 45%;
   /*  #endif  */

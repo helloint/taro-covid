@@ -38,7 +38,7 @@ export default class Index extends Component {
 
   goToComponent = (name: string) => {
     navigateTo({
-      url: `/pages/${name}/${name}`,
+      url: `/pages/${name}/index`,
     });
   };
 

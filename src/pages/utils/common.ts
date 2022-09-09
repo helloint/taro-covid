@@ -1,4 +1,4 @@
-import {CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion, CovidTableType} from "./types";
+import { CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion, CovidTableType } from './types';
 
 /**
  * 扩展出可被计算的数据
@@ -31,13 +31,13 @@ const extendData = (data: CovidDailyTotalSource): CovidDailyTotalType => {
       history_total_cured: total_cured + 385,
       'confirm-wzz_percent': (dailyData.wzz != 0 ? (dailyData.confirm / dailyData.wzz).toFixed(2) : 0) + '%',
       'wzz-zhuangui_percent': (dailyData.wzz != 0 ? (dailyData.zhuangui / dailyData.wzz).toFixed(2) : 0) + '%',
-    }
+    };
   });
   return {
     ...data,
     daily: dailyExt,
   };
-}
+};
 
 /**
  * Cut the data which is after the endDate
@@ -60,8 +60,8 @@ const cutDailyData = (data: CovidDailyTotalType, endDate: string): CovidDailyTot
     }
   });
 
-  return {total: data.total, daily, regions};
-}
+  return { total: data.total, daily, regions };
+};
 
 /**
  * 处理数据以供表格渲染用
@@ -74,16 +74,15 @@ const processTableData = (data: CovidDailyTotalType, dayLimit: number): CovidTab
   const recentDaily: { [key: string]: CovidDailyExt } = {};
   const totalNum = Object.keys(data.daily).length;
   Object.entries(data.daily).forEach(([date, dailyData], index) => {
-    const dateStr = parseInt(date.split('-')[1], 10) + '月'
-      + parseInt(date.split('-')[2], 10) + '日';
+    const dateStr = parseInt(date.split('-')[1], 10) + '月' + parseInt(date.split('-')[2], 10) + '日';
     if (index >= totalNum - dayLimit) {
       recentDaily[dateStr] = dailyData;
     }
     daily[dateStr] = dailyData;
   });
 
-  return {total: data.total, daily: daily, recentDaily: recentDaily};
-}
+  return { total: data.total, daily: daily, recentDaily: recentDaily };
+};
 
 /**
  * 仅筛选出指定字段的数据（数组）
@@ -97,7 +96,7 @@ const filterDailyData = (origData: { [key: string]: CovidDailyExt }, dataField: 
   });
 
   return ret;
-}
+};
 
 /**
  * format date
@@ -106,12 +105,6 @@ const filterDailyData = (origData: { [key: string]: CovidDailyExt }, dataField: 
  */
 const formatDate = (date: string): string => {
   return parseInt(date.split('-')[0], 10) + '年' + parseInt(date.split('-')[1], 10) + '月' + parseInt(date.split('-')[2], 10) + '日';
-}
+};
 
-export {
-  extendData,
-  cutDailyData,
-  processTableData,
-  filterDailyData,
-  formatDate,
-}
+export { extendData, cutDailyData, processTableData, filterDailyData, formatDate };
