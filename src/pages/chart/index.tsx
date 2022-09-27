@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { View } from '@tarojs/components';
+import { useTranslation } from 'react-i18next';
 import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useWindowSize, formatDate } from '../utils';
@@ -62,10 +63,13 @@ export default function Index() {
     }
   }, [containerReady, containerResize]);
 
+  const { t } = useTranslation();
+  const city = t('chart.city');
+
   return (
     <View ref={ref} className='page'>
       <View>
-        <Title title={currDate && formatDate(currDate)} location='上海' />
+        <Title title={currDate && formatDate(currDate, t('common.date_pattern'))} location={city} />
         <Kanban data={currDate ? origData?.daily[currDate] : undefined} />
       </View>
       <View>

@@ -1,0 +1,43 @@
+{
+  "index": {
+    "chart": "图表",
+    "map": "地图",
+    "address": "地址",
+    "data": "数据"
+  },
+  "chart": {
+    "city": "上海",
+    "kanban": "看板",
+    "confirm_title": "确诊 & 无症状",
+    "confirm_serie_confirm": "确诊",
+    "confirm_serie_wzz": "无症状",
+    "shaicha_title": "风险排查（社会面） 确诊 & 无症状",
+    "shaicha_serie_confirm": "确诊",
+    "shaicha_serie_wzz": "无症状",
+    "cured_title": "在院治疗 & 新增治愈",
+    "cured_serie_curr_confirm": "在院治疗",
+    "cured_serie_cured": "新增治愈",
+    "death_title": "死亡病例",
+    "death_serie_death": "死亡病例",
+    "completeConfirmCured_title": "本轮疫情：确诊 & 治愈",
+    "completeConfirmCured_serie_confirm": "确诊",
+    "completeConfirmCured_serie_cured": "治愈",
+    "completeShaicha_title": "本轮疫情：风险排查 & 阳性总数",
+    "completeShaicha_serie_shaicha": "风险排查",
+    "completeShaicha_serie_total": "阳性总数",
+    "completeConfirmWzz_title": "本轮疫情：确诊 & 无症状",
+    "completeConfirmWzz_serie_confirm": "确诊",
+    "completeConfirmWzz_serie_wzz": "无症状"
+  },
+  "common": {
+    "date_pattern": "yyyy年mm月dd日",
+    "confirm": "本土确诊",
+    "wzz": "本土无症状",
+    "cured": "新增治愈",
+    "death": "死亡病例",
+    "total_confirm": "累计确诊",
+    "total_wzz_correct": "累计无症状",
+    "total_cured": "累计治愈",
+    "total_death": "累计死亡"
+  }
+}

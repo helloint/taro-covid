@@ -1,0 +1,15 @@
+{
+  "index": {
+    "chart": "Chart",
+    "map": "Map",
+    "address": "Address",
+    "data": "Data"
+  },
+  "chart": {
+    "city": "SHN",
+    "kanban": "Kanban"
+  },
+  "common": {
+    "date_pattern": "yyyy-mm-dd"
+  }
+}

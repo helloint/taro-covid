@@ -101,10 +101,14 @@ const filterDailyData = (origData: { [key: string]: CovidDailyExt }, dataField: 
 /**
  * format date
  * @param date 2022-05-10
+ * @param pattern yyyy年mm月dd日
  * @returns {string} 2022年5月10日
  */
-const formatDate = (date: string): string => {
-  return parseInt(date.split('-')[0], 10) + '年' + parseInt(date.split('-')[1], 10) + '月' + parseInt(date.split('-')[2], 10) + '日';
+const formatDate = (date: string, pattern: string): string => {
+  return pattern
+    .replace('yyyy', parseInt(date.split('-')[0], 10) + '')
+    .replace('mm', parseInt(date.split('-')[1], 10) + '')
+    .replace('dd', parseInt(date.split('-')[2], 10) + '');
 };
 
 export { extendData, cutDailyData, processTableData, filterDailyData, formatDate };

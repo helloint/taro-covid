@@ -1,0 +1,43 @@
+{
+  "index": {
+    "chart": "图表",
+    "map": "地图",
+    "address": "地址",
+    "data": "数据"
+  },
+  "chart": {
+    "city": "总部",
+    "kanban": "看板",
+    "confirm_title": "发布 & 无异常",
+    "confirm_serie_confirm": "发布",
+    "confirm_serie_wzz": "无异常",
+    "shaicha_title": "生产排查 发布 & 无异常",
+    "shaicha_serie_confirm": "发布",
+    "shaicha_serie_wzz": "无异常",
+    "cured_title": "正在处理 & 新增解决",
+    "cured_serie_curr_confirm": "正在处理",
+    "cured_serie_cured": "新增解决",
+    "death_title": "失败案例",
+    "death_serie_death": "失败案例",
+    "completeConfirmCured_title": "本轮排查：发布 & 解决",
+    "completeConfirmCured_serie_confirm": "发布",
+    "completeConfirmCured_serie_cured": "解决",
+    "completeShaicha_title": "本轮排查：生产排查 & 问题总数",
+    "completeShaicha_serie_shaicha": "生产排查",
+    "completeShaicha_serie_total": "问题总数",
+    "completeConfirmWzz_title": "本轮排查：发布 & 无异常",
+    "completeConfirmWzz_serie_confirm": "发布",
+    "completeConfirmWzz_serie_wzz": "无异常"
+  },
+  "common": {
+    "date_pattern": "yyyy年mm月dd日",
+    "confirm": "本地发布",
+    "wzz": "本地无异常",
+    "cured": "新增解决",
+    "death": "失败案例",
+    "total_confirm": "累计发布",
+    "total_wzz_correct": "累计无异常",
+    "total_cured": "累计解决",
+    "total_death": "累计失败"
+  }
+}

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { EChartOption } from 'taro-react-echarts';
+import { useTranslation } from 'react-i18next';
 import { CovidDailyTotalType, cutDailyData, DAY_LIMIT, filterDailyData, processTableData } from '../utils';
 import Chart from './chart';
 
@@ -74,8 +75,8 @@ export default function Charts(props: Props) {
   // const [lastDate, setLastDate] = useState<string>('');
   // @ts-ignore
   const [chartReadyCount, setChartReadyCount] = useState<number>(0);
-
   const initOption = useMemo(() => getOption(styleZoom, styleRatio), [styleZoom, styleRatio]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (origData && currDate && chartReadyCount === charts.length) {
@@ -86,14 +87,14 @@ export default function Charts(props: Props) {
       const options: { [key: string]: EChartOption } = {};
       options['confirm'] = {
         title: {
-          text: '确诊 & 无症状',
+          text: t('chart.confirm_title'),
         },
         xAxis: {
           data: Object.keys(chartData.recentDaily),
         },
         series: [
           {
-            name: '确诊',
+            name: t('chart.confirm_serie_confirm'),
             type: 'line',
             label: {
               show: true,
@@ -109,7 +110,7 @@ export default function Charts(props: Props) {
             data: filterDailyData(chartData.recentDaily, 'confirm'),
           },
           {
-            name: '无症状',
+            name: t('chart.confirm_serie_wzz'),
             type: 'line',
             label: {
               show: true,
@@ -127,14 +128,14 @@ export default function Charts(props: Props) {
       };
       options['shaicha'] = {
         title: {
-          text: '风险排查（社会面） 确诊 & 无症状',
+          text: t('chart.shaicha_title'),
         },
         xAxis: {
           data: Object.keys(chartData.recentDaily),
         },
         series: [
           {
-            name: '确诊',
+            name: t('chart.shaicha_serie_confirm'),
             type: 'line',
             label: {
               show: true,
@@ -150,7 +151,7 @@ export default function Charts(props: Props) {
             data: filterDailyData(chartData.recentDaily, 'confirm_shaicha'),
           },
           {
-            name: '无症状',
+            name: t('chart.shaicha_serie_wzz'),
             type: 'line',
             label: {
               show: true,
@@ -168,7 +169,7 @@ export default function Charts(props: Props) {
       };
       options['cured'] = {
         title: {
-          text: '在院治疗 & 新增治愈',
+          text: t('chart.cured_title'),
         },
         xAxis: {
           data: Object.keys(chartData.recentDaily),
@@ -178,7 +179,7 @@ export default function Charts(props: Props) {
         },
         series: [
           {
-            name: '在院治疗',
+            name: t('chart.cured_serie_curr_confirm'),
             type: 'bar',
             label: {
               show: true,
@@ -189,7 +190,7 @@ export default function Charts(props: Props) {
             data: filterDailyData(chartData.recentDaily, 'curr_confirm'),
           },
           {
-            name: '新增治愈',
+            name: t('chart.cured_serie_cured'),
             type: 'bar',
             label: {
               show: true,
@@ -203,14 +204,14 @@ export default function Charts(props: Props) {
       };
       options['death'] = {
         title: {
-          text: '死亡病例',
+          text: t('chart.death_title'),
         },
         xAxis: {
           data: Object.keys(chartData.recentDaily),
         },
         series: [
           {
-            name: '死亡病例',
+            name: t('chart.death_serie_death'),
             type: 'bar',
             label: {
               show: true,
@@ -224,7 +225,7 @@ export default function Charts(props: Props) {
       };
       options['completeConfirmCured'] = {
         title: {
-          text: '本轮疫情：确诊 & 治愈',
+          text: t('chart.completeConfirmCured_title'),
         },
         xAxis: {
           data: Object.keys(chartData.daily),
@@ -234,7 +235,7 @@ export default function Charts(props: Props) {
         },
         series: [
           {
-            name: '确诊',
+            name: t('chart.completeConfirmCured_serie_confirm'),
             type: 'line',
             color: '#e47d7e',
             showSymbol: false,
@@ -243,7 +244,7 @@ export default function Charts(props: Props) {
             data: filterDailyData(chartData.daily, 'confirm'),
           },
           {
-            name: '治愈',
+            name: t('chart.completeConfirmCured_serie_cured'),
             type: 'line',
             color: '#6bdab4',
             showSymbol: false,
@@ -255,7 +256,7 @@ export default function Charts(props: Props) {
       };
       options['completeShaicha'] = {
         title: {
-          text: '本轮疫情：风险排查 & 阳性总数',
+          text: t('chart.completeShaicha_title'),
         },
         xAxis: {
           data: Object.keys(chartData.daily),
@@ -265,7 +266,7 @@ export default function Charts(props: Props) {
         },
         series: [
           {
-            name: '风险排查',
+            name: t('chart.completeShaicha_serie_shaicha'),
             type: 'line',
             color: '#e58e51',
             animation: false,
@@ -273,7 +274,7 @@ export default function Charts(props: Props) {
             data: filterDailyData(chartData.daily, 'shaicha'),
           },
           {
-            name: '阳性总数',
+            name: t('chart.completeShaicha_serie_total'),
             type: 'line',
             color: '#4f6fc7',
             animation: false,
@@ -284,7 +285,7 @@ export default function Charts(props: Props) {
       };
       options['completeConfirmWzz'] = {
         title: {
-          text: '本轮疫情：确诊 & 无症状',
+          text: t('chart.completeConfirmWzz_title'),
         },
         xAxis: {
           data: Object.keys(chartData.daily),
@@ -294,7 +295,7 @@ export default function Charts(props: Props) {
         },
         series: [
           {
-            name: '确诊',
+            name: t('chart.completeConfirmWzz_serie_confirm'),
             type: 'line',
             color: '#e47d7e',
             animation: false,
@@ -302,7 +303,7 @@ export default function Charts(props: Props) {
             data: filterDailyData(chartData.daily, 'confirm'),
           },
           {
-            name: '无症状',
+            name: t('chart.completeConfirmWzz_serie_wzz'),
             type: 'line',
             color: '#fdc368',
             animation: false,
