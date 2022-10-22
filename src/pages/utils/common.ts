@@ -1,4 +1,26 @@
+import Taro, { request } from '@tarojs/taro';
 import { CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion, CovidTableType } from './types';
+
+const httpClient = async (url: string, data?: any) => {
+  const isWeapp = Taro.getEnv() === Taro.ENV_TYPE.WEAPP;
+  if (isWeapp) {
+    const res = await Taro.cloud.callFunction({
+      name: 'proxy',
+      data: {
+        url: url,
+        ...data,
+      },
+    });
+
+    if (typeof res.result === 'string') {
+      return JSON.parse(res.result);
+    }
+    return res.result;
+  } else {
+    const response = await request({ url, data });
+    return response.data;
+  }
+};
 
 /**
  * 扩展出可被计算的数据
@@ -111,4 +133,4 @@ const formatDate = (date: string, pattern: string): string => {
     .replace('dd', parseInt(date.split('-')[2], 10) + '');
 };
 
-export { extendData, cutDailyData, processTableData, filterDailyData, formatDate };
+export { httpClient, extendData, cutDailyData, processTableData, filterDailyData, formatDate };

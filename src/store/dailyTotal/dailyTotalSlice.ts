@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { request } from '@tarojs/taro';
-import { DAILY_TOTAL_URL, extendData } from '../../pages/utils';
+import { DAILY_TOTAL_URL, extendData, httpClient } from '../../pages/utils';
 
 interface stateType {
   dailyTotal?: ReturnType<typeof extendData>;
@@ -14,8 +13,7 @@ const initialState: stateType = {
 };
 
 const getDailyTotal = createAsyncThunk('dailyTotal/get', async () => {
-  const response = await request({ url: DAILY_TOTAL_URL });
-  return response.data;
+  return await httpClient(DAILY_TOTAL_URL);
 });
 
 const dailyTotalSlice = createSlice({

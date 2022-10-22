@@ -1,12 +1,18 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Provider } from 'react-redux';
+import Taro from '@tarojs/taro';
 import store from './store/store';
 import './i18n';
 
 import './app.scss';
 
 const App = (props) => {
-  console.log(`cookie: ${document.cookie}`);
+  useEffect(() => {
+    if (process.env.TARO_ENV === 'weapp') {
+      Taro.cloud.init();
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <Suspense fallback='loading...'>{props.children}</Suspense>
