@@ -1,8 +1,10 @@
 import { View } from '@tarojs/components';
+import { useTranslation } from 'react-i18next';
 import './index.scss';
 
 const Index = () => {
-  return <View className='index'>Map!</View>;
+  const { t } = useTranslation();
+  return <View className='page'>Map {t('common.coming_soon')}</View>;
 };
 
 export default Index;

@@ -38,6 +38,7 @@
     "total_confirm": "累计确诊",
     "total_wzz_correct": "累计无症状",
     "total_cured": "累计治愈",
-    "total_death": "累计死亡"
+    "total_death": "累计死亡",
+    "coming_soon": "敬请期待"
   }
 }
