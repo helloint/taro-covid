@@ -30,7 +30,8 @@ i18n
     // backend: {
     //   loadPath: 'http://localhost:8080/static/locales/{{lng}}.json',
     // },
-    fallbackLng: 'zhWx',
+    fallbackLng: 'zh',
+    lng: 'zhWx',
     debug: true,
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
