@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { View } from '@tarojs/components';
+import { showShareMenu } from '@tarojs/taro';
 import { useTranslation } from 'react-i18next';
 import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -78,3 +79,7 @@ export default function Index() {
     </View>
   );
 }
+
+showShareMenu({
+  withShareTicket: true,
+});
