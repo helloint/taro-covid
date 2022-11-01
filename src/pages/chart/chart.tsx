@@ -24,6 +24,7 @@ export const Chart = (props: Props) => {
 
   return (
     <Echarts
+      isPage={false}
       key={id}
       className=''
       echarts={echarts}
