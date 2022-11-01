@@ -30,6 +30,7 @@
     "completeConfirmWzz_serie_wzz": "无症状"
   },
   "common": {
+    "loading": "加载中...",
     "date_pattern": "yyyy年mm月dd日",
     "confirm": "本土确诊",
     "wzz": "本土无症状",

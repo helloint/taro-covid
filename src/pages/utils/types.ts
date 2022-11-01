@@ -1,3 +1,7 @@
+interface Config {
+  locale: string;
+}
+
 interface CovidDaily {
   readonly total: number;
   readonly confirm: number;
@@ -82,6 +86,7 @@ interface CovidTableType {
 }
 
 export {
+  Config,
   CovidDaily,
   CovidDailyExt,
   CovidRegion,

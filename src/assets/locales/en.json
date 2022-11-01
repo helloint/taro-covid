@@ -10,6 +10,7 @@
     "kanban": "Kanban"
   },
   "common": {
+    "loading": "loading...",
     "date_pattern": "yyyy-mm-dd"
   }
 }
