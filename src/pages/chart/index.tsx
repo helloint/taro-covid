@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { View } from '@tarojs/components';
-import { showShareMenu } from '@tarojs/taro';
+import { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
 import { useTranslation } from 'react-i18next';
 import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -11,6 +11,25 @@ import Kanban from './kanban';
 import './index.scss';
 
 export default function Index() {
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      // console.log(res.target);
+    }
+    return {
+      title: '统计图表',
+      path: '/page/chart/index',
+    };
+  });
+
+  useShareTimeline(() => {
+    return {
+      title: '统计图表',
+      // query: `id=${this.data.shop.shop_id}`,  //页面携带参数
+      // imageUrl: moments   //TODO 动态创建图片
+    };
+  });
+
   /*
   （1）容器初次初始化（2）容器resize
   触发容器配置重置，重置完后，触发容器变化事件（containerUpdatedCount）
@@ -79,7 +98,3 @@ export default function Index() {
     </View>
   );
 }
-
-showShareMenu({
-  withShareTicket: true,
-});
