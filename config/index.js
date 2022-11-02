@@ -38,7 +38,7 @@ const config = {
     },
   },
   h5: {
-    publicPath: '/',
+    publicPath: '/taro-covid',
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {
