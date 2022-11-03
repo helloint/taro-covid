@@ -3,7 +3,7 @@ import { CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion,
 
 const httpClient = async (url: string, data?: any) => {
   const isWeapp = Taro.getEnv() === Taro.ENV_TYPE.WEAPP;
-  if (isWeapp) {
+  if (false) {
     const res = await Taro.cloud.callFunction({
       name: 'proxy',
       data: {
