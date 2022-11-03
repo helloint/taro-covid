@@ -18,7 +18,7 @@ export default function Index() {
     }
     return {
       title: '统计图表',
-      path: '/page/chart/index',
+      path: '/pages/chart/index',
     };
   });
 
