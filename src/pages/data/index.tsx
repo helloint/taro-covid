@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from '@tarojs/components';
 import { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
 import Table, { Columns } from 'taro-react-table';
 import 'taro-react-table/dist/index.css';
@@ -31,6 +30,7 @@ const Index = () => {
   const { t } = useTranslation();
   const [dataSource, setDataSource] = useState<{ [key: string]: number | string }[]>([]);
   const { dailyTotal } = useAppSelector((state) => state.dailyTotal);
+  const [loading, setLoading] = useState(true);
 
   const dataColumns = [
     'date',
@@ -84,24 +84,20 @@ const Index = () => {
         ds.push(row);
       }
       setDataSource(ds.reverse());
+      setLoading(false);
     }
   }, [dailyTotal]);
 
   return (
-    <View>
-      {dataSource ? (
-        <Table
-          scrollX
-          columns={columns}
-          dataSource={dataSource}
-          rowKey='date'
-          colWidth={50}
-          wrapperClass={process.env.TARO_ENV != 'h5' ? 'page' : ''}
-        ></Table>
-      ) : (
-        ''
-      )}
-    </View>
+    <Table
+      scrollX
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      rowKey='date'
+      colWidth={50}
+      wrapperClass={process.env.TARO_ENV != 'h5' ? 'page' : ''}
+    ></Table>
   );
 };
 
