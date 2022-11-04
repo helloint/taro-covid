@@ -6,6 +6,7 @@
     "data": "数据"
   },
   "chart": {
+    "name": "统计图表",
     "city": "上海",
     "kanban": "看板",
     "confirm_title": "确诊 & 无症状",

@@ -11,22 +11,25 @@ import Kanban from './kanban';
 import './index.scss';
 
 export default function Index() {
+  const { t } = useTranslation();
+  const city = t('chart.city');
+
   useShareAppMessage((res) => {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       // console.log(res.target);
     }
     return {
-      title: '统计图表',
+      title: (currDate ? formatDate(currDate, t('common.date_pattern')) + city : '') + t('chart.name'),
       path: '/pages/chart/index',
     };
   });
 
   useShareTimeline(() => {
     return {
-      title: '统计图表',
+      title: (currDate ? formatDate(currDate, t('common.date_pattern')) + city : '') + t('chart.name'),
       // query: `id=${this.data.shop.shop_id}`,  //页面携带参数
-      // imageUrl: moments   //TODO 动态创建图片
+      // imageUrl: moments
     };
   });
 
@@ -69,8 +72,8 @@ export default function Index() {
         //     setContainerUpdated(count => count + 1);
         //   }
         // }).exec();
-        setStyleZoom(390 / 750);
         // TODO: 动态宽度，横屏支持
+        setStyleZoom(390 / 750);
         setContainerUpdated((count) => count + 1);
       } else {
         const containerWidth = ref.current?.offsetWidth;
@@ -82,9 +85,6 @@ export default function Index() {
       }
     }
   }, [containerReady, containerResize]);
-
-  const { t } = useTranslation();
-  const city = t('chart.city');
 
   return (
     <View ref={ref} className='page'>
