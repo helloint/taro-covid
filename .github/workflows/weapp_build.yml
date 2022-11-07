@@ -7,8 +7,10 @@ on:
   #    branches: [master]
   workflow_dispatch:
     inputs:
+      version:
+        description: '版本号 ｜ 留空会读取package.json'
       desc:
-        description: '项目备注'
+        description: '项目备注 | 留空会读取最后一次commit'
 
 jobs:
   build:
@@ -39,4 +41,4 @@ jobs:
           UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
       # 上传代码
       - name: Upload to WeChat
-        run: npx mp-ci upload ./ --pkp=./private.key --no-test --desc ${{ github.event.inputs.branch }}
+        run: npx mp-ci upload ./ --pkp=./private.key --no-test --version ${{ github.event.inputs.version }} --desc ${{ github.event.inputs.desc }}
