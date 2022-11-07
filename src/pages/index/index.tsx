@@ -1,6 +1,6 @@
-import { navigateTo } from '@tarojs/taro';
-import { View } from '@tarojs/components';
 import { useTranslation } from 'react-i18next';
+import { View } from '@tarojs/components';
+import { navigateTo } from '@tarojs/taro';
 
 import './index.scss';
 

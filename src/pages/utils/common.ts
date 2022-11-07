@@ -133,4 +133,4 @@ const formatDate = (date: string, pattern: string): string => {
     .replace('dd', parseInt(date.split('-')[2], 10) + '');
 };
 
-export { httpClient, extendData, cutDailyData, processTableData, filterDailyData, formatDate };
+export { cutDailyData, extendData, filterDailyData, formatDate, httpClient, processTableData };

@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
 import Table, { Columns } from 'taro-react-table';
-import 'taro-react-table/dist/index.css';
 import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
+import 'taro-react-table/dist/index.css';
 import './index.scss';
 
 const Index = () => {

@@ -89,10 +89,10 @@ export {
   Config,
   CovidDaily,
   CovidDailyExt,
-  CovidRegion,
   CovidDailySource,
-  CovidDailyType,
   CovidDailyTotalSource,
   CovidDailyTotalType,
+  CovidDailyType,
+  CovidRegion,
   CovidTableType,
 };

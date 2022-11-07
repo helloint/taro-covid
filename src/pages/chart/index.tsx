@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from '@tarojs/components';
 import { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
-import { useTranslation } from 'react-i18next';
 import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useWindowSize, formatDate } from '../utils';
+import { formatDate, useWindowSize } from '../utils';
 import Charts from './charts';
-import Title from './title';
 import Kanban from './kanban';
+import Title from './title';
+
 import './index.scss';
 
 export default function Index() {

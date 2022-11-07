@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { EChartOption } from 'taro-react-echarts';
 import { useTranslation } from 'react-i18next';
+import { EChartOption } from 'taro-react-echarts';
 import { CovidDailyTotalType, cutDailyData, DAY_LIMIT, filterDailyData, processTableData } from '../utils';
 import Chart from './chart';
 

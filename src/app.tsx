@@ -1,10 +1,10 @@
 import { Suspense, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Provider } from 'react-redux';
 import Taro from '@tarojs/taro';
-import { useTranslation } from 'react-i18next';
-import store from './store/store';
-import { Config, CONFIG_URL, httpClient } from './pages/utils';
 import './i18n';
+import { Config, CONFIG_URL, httpClient } from './pages/utils';
+import store from './store/store';
 
 import './app.scss';
 

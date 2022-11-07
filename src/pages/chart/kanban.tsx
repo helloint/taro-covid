@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from '@tarojs/components';
 import { useTranslation } from 'react-i18next';
+import { View } from '@tarojs/components';
 import { CovidDailyExt } from '../utils';
 
 import './kanban.scss';
