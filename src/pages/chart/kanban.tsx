@@ -18,22 +18,22 @@ const items: Item[] = [
     id: 'wzz',
   },
   {
-    id: 'cured',
+    id: 'curr_confirm',
   },
   {
     id: 'death',
   },
   {
+    id: 'confirm_shaicha',
+  },
+  {
+    id: 'wzz_shaicha',
+  },
+  {
     id: 'total_confirm',
   },
   {
-    id: 'total_wzz_correct',
-  },
-  {
     id: 'total_cured',
-  },
-  {
-    id: 'total_death',
   },
 ];
 

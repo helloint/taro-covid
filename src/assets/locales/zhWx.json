@@ -58,9 +58,11 @@
     "total_death": "累计失败"
   },
   "common": {
-    "date_pattern": "yyyy年mm月dd日",
     "confirm": "本地发布",
     "wzz": "本地无异常",
+    "confirm_shaicha": "生产发布",
+    "wzz_shaicha": "生产无异常",
+    "curr_confirm": "正在处理",
     "cured": "新增解决",
     "death": "失败案例",
     "total_confirm": "累计发布",

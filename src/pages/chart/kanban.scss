@@ -44,7 +44,8 @@
   }
 }
 
-.kanban__item--confirm {
+.kanban__item--confirm,
+.kanban__item--confirm_shaicha {
   background-color: #fefaf7;
 
   .kanban__item-data {
@@ -52,7 +53,8 @@
   }
 }
 
-.kanban__item--wzz {
+.kanban__item--wzz,
+.kanban__item--wzz_shaicha {
   background-color: #fef8fe;
 
   .kanban__item-data {
@@ -60,7 +62,8 @@
   }
 }
 
-.kanban__item--cured {
+.kanban__item--cured,
+.kanban__item--curr_confirm {
   background-color: #fdf5f4;
 
   .kanban__item-data {
