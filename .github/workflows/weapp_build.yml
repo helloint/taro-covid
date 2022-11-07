@@ -41,4 +41,4 @@ jobs:
           UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
       # 上传代码
       - name: Upload to WeChat
-        run: npx mp-ci upload ./ --pkp=./private.key --no-test --version ${{ github.event.inputs.version }} --desc ${{ github.event.inputs.desc }}
+        run: npx mp-ci upload ./ --pkp=./private.key --no-test
