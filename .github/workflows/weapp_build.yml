@@ -1,11 +1,14 @@
 name: Weapp Build
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  #  push:
+  #    branches: [master]
+  #  pull_request:
+  #    branches: [master]
   workflow_dispatch:
+    inputs:
+      desc:
+        description: '项目备注'
 
 jobs:
   build:
@@ -36,4 +39,4 @@ jobs:
           UPLOAD_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
       # 上传代码
       - name: Upload to WeChat
-        run: npx mp-ci upload ./ --pkp=./private.key --no-test
+        run: npx mp-ci upload ./ --pkp=./private.key --no-test --desc ${{ github.event.inputs.branch }}
