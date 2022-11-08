@@ -35,9 +35,9 @@ jobs:
           action_type: upload
           project_path: ./dist
           version: ${{ github.event.inputs.version }}
+          remark: ${{ github.event.inputs.desc }}
           command_options: --enable-es6
             --project-ignores=['node_modules/**/*']
-            --desc=${{ github.event.inputs.desc }}
         env:
           MINI_APP_ID: ${{ secrets.APP_ID }}
           MINI_APP_PRIVATE_KEY: ${{ secrets.UPLOAD_PRIVATE_KEY }}
