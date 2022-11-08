@@ -1,10 +1,11 @@
 # action for bundle taro react native project
 # remove this file if you don't need it
 # see https://github.com/zhiqingchen/taro-react-native-release for details.
+name: Taro Playground Bundle Release
 
 on:
   push:
-    tags: [ v* ]
+    tags: [v*]
   workflow_dispatch:
 
 jobs:

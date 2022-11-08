@@ -1,4 +1,4 @@
-name: Weapp Build
+name: Weapp Build & Upload
 
 on:
   #  push:
