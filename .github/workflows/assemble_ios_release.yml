@@ -3,11 +3,11 @@ name: Assemble Ios Release
 
 # 触发工作流程的事件
 on:
-  push:
-    branches: [ master ]
-    tags: [ v* ]
-  pull_request:
-    branches: [ master ]
+  #  push:
+  #    branches: [ master ]
+  #    tags: [ v* ]
+  #  pull_request:
+  #    branches: [ master ]
 
   workflow_dispatch:
 
