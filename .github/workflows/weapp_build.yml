@@ -1,16 +1,28 @@
 name: Weapp Build & Upload
 
 on:
-  #  push:
-  #    branches: [master]
-  #  pull_request:
-  #    branches: [master]
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
   workflow_dispatch:
     inputs:
       version:
-        description: '版本号 ｜ 留空会读取package.json'
+        description: '版本号 ｜ 留空会默认1.0.0'
       desc:
-        description: '项目备注 | 留空会读取最后一次commit'
+        description: '项目备注 | 留空会读取PR title或最后一次的commit message'
+      action_type:
+        description: '上传或预览'
+        options:
+          - preview
+          - upload
+        default: 'upload'
+      robots:
+        description: '选择用于上传的robot'
+        options:
+          - master=1
+          - master=3
+        default: 'master=3'
 
 jobs:
   build:
@@ -32,7 +44,7 @@ jobs:
         uses: echoings/actions.mini-program@main
         with:
           project_type: miniProgram
-          action_type: upload
+          action_type: ${{ github.event.inputs.action_type }}
           project_path: ./dist
           version: ${{ github.event.inputs.version }}
           remark: ${{ github.event.inputs.desc }}
