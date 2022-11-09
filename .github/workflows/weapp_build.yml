@@ -1,10 +1,10 @@
 name: Weapp Build & Upload
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  #  push:
+  #    branches: [master]
+  #  pull_request:
+  #    branches: [master]
   workflow_dispatch:
     inputs:
       version:
@@ -48,6 +48,7 @@ jobs:
           project_path: ./dist
           version: ${{ github.event.inputs.version }}
           remark: ${{ github.event.inputs.desc }}
+          robots: ${{ github.event.inputs.robots }}
           command_options: --enable-es6
             --project-ignores=['node_modules/**/*']
         env:
