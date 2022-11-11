@@ -1,9 +1,11 @@
 import Taro, { request } from '@tarojs/taro';
 import { CovidDailyExt, CovidDailyTotalSource, CovidDailyTotalType, CovidRegion, CovidTableType } from './types';
 
+const useCloudFunction = false;
+
 const httpClient = async (url: string, data?: any) => {
   const isWeapp = Taro.getEnv() === Taro.ENV_TYPE.WEAPP;
-  if (false) {
+  if (useCloudFunction && isWeapp) {
     const res = await Taro.cloud.callFunction({
       name: 'proxy',
       data: {
@@ -76,11 +78,13 @@ const cutDailyData = (data: CovidDailyTotalType, endDate: string): CovidDailyTot
   });
 
   const regions: { [key: string]: CovidRegion } = {};
-  Object.entries(data.regions).forEach(([date, item]) => {
-    if (date <= endDate) {
-      regions[date] = item;
-    }
-  });
+  if (data.regions) {
+    Object.entries(data.regions).forEach(([date, item]) => {
+      if (date <= endDate) {
+        regions[date] = item;
+      }
+    });
+  }
 
   return { total: data.total, daily, regions };
 };

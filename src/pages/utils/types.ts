@@ -70,13 +70,13 @@ interface CovidDailyType {
 interface CovidDailyTotalSource {
   total: CovidTotal;
   daily: { [key: string]: CovidDaily };
-  regions: { [key: string]: CovidRegion };
+  regions?: { [key: string]: CovidRegion };
 }
 
 interface CovidDailyTotalType {
   total: CovidTotal;
   daily: { [key: string]: CovidDailyExt };
-  regions: { [key: string]: CovidRegion };
+  regions?: { [key: string]: CovidRegion };
 }
 
 interface CovidTableType {
