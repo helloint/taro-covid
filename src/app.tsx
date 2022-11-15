@@ -23,7 +23,7 @@ const App = (props) => {
 
   return (
     <Provider store={store}>
-      <Suspense fallback={t('loading')}>{props.children}</Suspense>
+      <Suspense fallback={t('common.loading')}>{props.children}</Suspense>
     </Provider>
   );
 };
