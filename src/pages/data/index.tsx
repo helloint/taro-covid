@@ -65,6 +65,7 @@ const Index = () => {
       title: t('data.' + col),
       dataIndex: col,
       fixed: col == 'date' ? 'left' : undefined,
+      width: col == 'date' ? 40 : undefined,
     };
   });
 
@@ -77,7 +78,9 @@ const Index = () => {
 
   useEffect(() => {
     if (dailyTotal) {
-      const ds: { [key: string]: number | string }[] = [];
+      // Have to use 'any' here instead of the expected 'string | number' to resolve the TypeScript issue
+      // See https://stackoverflow.com/questions/37006008/typescript-index-signature-is-missing-in-type
+      const ds: { [key: string]: any }[] = [];
       for (const [date, covid] of Object.entries(dailyTotal.daily)) {
         const row = Object.assign({}, covid);
         row['date'] = date;
@@ -96,6 +99,7 @@ const Index = () => {
       loading={loading}
       rowKey='date'
       colWidth={50}
+      // striped
       wrapperClass={process.env.TARO_ENV != 'h5' ? 'page' : ''}
     ></Table>
   );
