@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from '@tarojs/components';
 import { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
@@ -14,25 +14,6 @@ import './index.scss';
 export default function Index() {
   const { t } = useTranslation();
   const city = t('chart.city');
-
-  useShareAppMessage((res) => {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      // console.log(res.target);
-    }
-    return {
-      title: (currDate ? formatDate(currDate, t('common.date_pattern')) + city : '') + t('chart.name'),
-      path: '/pages/chart/index',
-    };
-  });
-
-  useShareTimeline(() => {
-    return {
-      title: (currDate ? formatDate(currDate, t('common.date_pattern')) + city : '') + t('chart.name'),
-      // query: `id=${this.data.shop.shop_id}`,  //页面携带参数
-      // imageUrl: moments
-    };
-  });
 
   /*
   （1）容器初次初始化（2）容器resize
@@ -86,6 +67,38 @@ export default function Index() {
       }
     }
   }, [containerReady, containerResize]);
+
+  const shareTitle = useMemo(() => {
+    let ret = t('chart.name');
+    if (currDate) {
+      if (origData) {
+        const daily = origData.daily[currDate];
+        // pattern: 1+13 (1+3)
+        const summary = `${daily.confirm}+${daily.wzz}(${daily.confirm_shaicha}+${daily.wzz_shaicha})`;
+        ret = formatDate(currDate, t('common.short_date_pattern')) + city + summary;
+      } else {
+        ret = formatDate(currDate, t('common.short_date_pattern')) + city + ret;
+      }
+    }
+    return ret;
+  }, [city, currDate, origData, t]);
+
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      // console.log(res.target);
+    }
+    return {
+      title: shareTitle,
+      path: '/pages/chart/index',
+    };
+  });
+
+  useShareTimeline(() => {
+    return {
+      title: shareTitle,
+    };
+  });
 
   return (
     <View ref={ref} className='page'>

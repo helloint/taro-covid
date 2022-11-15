@@ -62,6 +62,7 @@
   "common": {
     "loading": "加载中...",
     "date_pattern": "yyyy年mm月dd日",
+    "short_date_pattern": "mm月dd日",
     "confirm": "本土确诊",
     "wzz": "本土无症状",
     "confirm_shaicha": "社会面确诊",
