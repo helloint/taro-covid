@@ -14,9 +14,18 @@
 .taro-table-wrapper .taro-table-scroll .taro-table-head .taro-table-title {
   color: #000;
 }
+.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row {
+  margin: 0;
+}
 .taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row .taro-table-col {
   padding: 0;
 }
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(2n) {
-  box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 5%);
+.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(even) {
+  background-color: #e7e7e7;
+}
+.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(even) .taro-table-col {
+  background-color: transparent;
+}
+.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(even) .taro-table-col-fixed {
+  background-color: #e7e7e7;
 }

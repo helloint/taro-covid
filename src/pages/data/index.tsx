@@ -65,7 +65,7 @@ const Index = () => {
       title: t('data.' + col),
       dataIndex: col,
       fixed: col == 'date' ? 'left' : undefined,
-      width: col == 'date' ? 40 : undefined,
+      width: col == 'date' ? 40 : t('data.' + col).length * 8 + 10,
     };
   });
 
@@ -98,8 +98,9 @@ const Index = () => {
       dataSource={dataSource}
       loading={loading}
       rowKey='date'
-      colWidth={50}
-      // striped
+      colWidth={40}
+      size={0}
+      striped
       wrapperClass={process.env.TARO_ENV != 'h5' ? 'page' : ''}
     ></Table>
   );
