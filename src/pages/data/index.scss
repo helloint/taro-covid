@@ -1,31 +1,47 @@
-.taro-table-wrapper .taro-table-scroll .taro-table-head .taro-table-title-text,
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row .taro-table-col {
-  font-size: 12px;
+$text-color: #000;
+$font-size: 10px;
+$large-font-size: 12px;
+$striped-background-color: #e7e7e7;
+
+.taro-table-wrapper .taro-table-scroll .taro-table-head {
+  height: auto;
+
+  .taro-table-title {
+    height: auto;
+    color: $text-color;
+  }
+
+  .taro-table-title-text {
+    font-size: $large-font-size;
+  }
 }
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-empty,
+.taro-table-wrapper .taro-table-scroll .taro-table-body {
+  .taro-table-row {
+    margin: 0;
+    .taro-table-col {
+      padding: 0;
+      font-size: $large-font-size;
+    }
+
+    &.taro-table-row-striped:nth-child(even) {
+      background-color: $striped-background-color;
+
+      .taro-table-col {
+        background-color: transparent;
+
+        &.taro-table-col-fixed {
+          background-color: $striped-background-color;
+        }
+      }
+    }
+  }
+
+  .taro-table-empty {
+    font-size: $font-size;
+  }
+}
+
 .loading-wrapper .loading-text,
 .load-more .no-more-text {
-  font-size: 10px;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-head,
-.taro-table-wrapper .taro-table-scroll .taro-table-head .taro-table-title {
-  height: auto;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-head .taro-table-title {
-  color: #000;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row {
-  margin: 0;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row .taro-table-col {
-  padding: 0;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(even) {
-  background-color: #e7e7e7;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(even) .taro-table-col {
-  background-color: transparent;
-}
-.taro-table-wrapper .taro-table-scroll .taro-table-body .taro-table-row-striped:nth-child(even) .taro-table-col-fixed {
-  background-color: #e7e7e7;
+  font-size: $font-size;
 }
