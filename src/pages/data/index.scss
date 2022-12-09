@@ -23,16 +23,8 @@ $striped-background-color: #e7e7e7;
       font-size: $large-font-size;
     }
 
-    &.taro-table-row-striped:nth-child(even) {
+    .taro-table-col-striped {
       background-color: $striped-background-color;
-
-      .taro-table-col {
-        background-color: transparent;
-
-        &.taro-table-col-fixed {
-          background-color: $striped-background-color;
-        }
-      }
     }
   }
 
