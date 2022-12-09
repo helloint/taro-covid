@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
-import Table, { Columns } from 'taro-react-table';
+import Table, { Columns, LoadStatus } from 'taro-react-table';
 import { getDailyTotal } from '../../store/dailyTotal/dailyTotalSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
@@ -28,9 +28,13 @@ const Index = () => {
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [dataSet, setDataSet] = useState<{ [key: string]: number | string }[]>([]);
   const [dataSource, setDataSource] = useState<{ [key: string]: number | string }[]>([]);
   const { dailyTotal } = useAppSelector((state) => state.dailyTotal);
   const [loading, setLoading] = useState(true);
+  const pageSize = 100;
+  const [pageNum, setPageNum] = useState(1);
+  const [loadStatus, setLoadStatus] = useState<LoadStatus>(null);
 
   const dataColumns = [
     'date',
@@ -86,10 +90,30 @@ const Index = () => {
         row['date'] = date;
         ds.push(row);
       }
-      setDataSource(ds.reverse());
-      setLoading(false);
+      setDataSet(ds.reverse());
     }
   }, [dailyTotal]);
+
+  useEffect(() => {
+    if (dataSet) {
+      const initDs = dataSet.slice(0, pageNum * pageSize);
+      setDataSource(initDs);
+      setLoading(false);
+    }
+  }, [dataSet, pageSize, pageNum]);
+
+  const onLoad = async () => {
+    setLoadStatus('loading');
+    console.log(`pageNum: ${pageNum}`);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setDataSource(dataSet.slice(0, (pageNum + 1) * pageSize));
+        setLoadStatus(dataSet.length <= (pageNum + 1) * pageSize ? 'noMore' : null);
+        setPageNum((num) => num + 1);
+        resolve('');
+      }, 50);
+    });
+  };
 
   return (
     <Table
@@ -97,9 +121,12 @@ const Index = () => {
       columns={columns}
       dataSource={dataSource}
       loading={loading}
+      onLoad={onLoad}
+      loadStatus={loadStatus}
       rowKey='date'
       colWidth={40}
       size={0}
+      style={{ height: '800px' }}
       striped
       wrapperClass={process.env.TARO_ENV != 'h5' ? 'page' : ''}
     ></Table>
