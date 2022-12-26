@@ -34,7 +34,7 @@ export const Chart = (props: Props) => {
         setIsReady(true);
         onReady(id);
       }}
-      opts={{ devicePixelRatio: 2, width: 750 * styleZoom, height: 300 * styleZoom * styleRatio }}
+      opts={{ width: 750 * styleZoom, height: 300 * styleZoom * styleRatio }}
       option={initOption}
       style={{
         width: 750 * styleZoom + 'px',
